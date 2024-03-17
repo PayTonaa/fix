@@ -1,0 +1,180 @@
+$primary: #110F23;
+$secondary: #EB055A;
+$info: #191534;
+$success: #6D6496;
+$box-shadow: 0 .5rem 1rem rgba($secondary, .15);
+$warning: #69EE4C; //import bootstrap
+$box-shadow: 0 .5rem 1rem rgba($secondary, .15);
+$box-shadow-sm: 0 .15rem 2rem rgba($warning, .25);
+
+$box-shadow-lg: 0 .05rem 3rem rgba(#302a52, .35);
+
+$light: #211B45;
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.box {
+    --border-angle: 0turn; // For animation.
+    --main-bg: conic-gradient(from var(--border-angle),
+            #213,
+            #112 5%,
+            #112 60%,
+            #213 95%);
+
+    border: solid 5px transparent;
+    border-radius: 2em;
+    --gradient-border: conic-gradient(from var(--border-angle), transparent 25%, #191534, #EB055A 60%, transparent);
+
+    background:
+        // padding-box clip this background in to the overall element except the border.
+        var(--main-bg) padding-box,
+        // border-box extends this background to the border space
+        var(--gradient-border) border-box,
+        // Duplicate main background to fill in behind the gradient border. You can remove this if you want the border to extend "outside" the box background.
+        var(--main-bg) border-box;
+
+    background-position: center center;
+
+    animation: bg-spin 3s linear infinite;
+
+    @keyframes bg-spin {
+        to {
+            --border-angle: 1turn;
+        }
+    }
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+}
+
+//import font from google
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
+// variables
+$gray-base: #000;
+$font-regular: "Roboto", sans-serif;
+
+// mixins
+@mixin translate($x, $y) {
+    -webkit-transform: translate($x, $y);
+    -ms-transform: translate($x, $y); // IE9 only
+    -o-transform: translate($x, $y);
+    transform: translate($x, $y);
+}
+
+@mixin background-size($size) {
+    -webkit-background-size: $size;
+    -moz-background-size: $size;
+    -o-background-size: $size;
+    background-size: $size;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: $font-regular;
+    background: $gray-base;
+}
+
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+
+    &__video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba($gray-base, 0.5);
+        z-index: 1;
+    }
+}
+
+.content {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 999;
+    text-align: center;
+    @include translate(-50%, -50%);
+
+    &__title {
+        font-size: 48px;
+        color: white;
+        padding: 0 10px;
+        text-shadow: 2px 2px 0px #000;
+        margin: auto;
+    }
+
+    &__text {
+        font: 300 18px $font-regular;
+        color: white;
+        display: block;
+    }
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        height: 300%;
+        top: -100%;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        width: 300%;
+        left: -100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .fullscreen-bg {
+        background: url("https://storage.coverr.co/t/Yh1kERqtFxxfzaX2Zb02UqoUAJ7zkQ02tA") center center / cover no-repeat;
+        @include background-size(cover);
+
+        &__video {
+            display: none;
+        }
+    }
+
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 10px;
+    margin: 15px;
+    opacity: 0.6;
+
+    &__text {
+        margin: 0;
+        color: #fff;
+    }
+
+    &__link {
+        color: #fff;
+    }
+}

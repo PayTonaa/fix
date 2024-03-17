@@ -1,0 +1,10 @@
+header .container-sm button {
+    text-shadow: 2px 2px 12px #f5f5f5, -2px -2px 12px #bebebe;
+    color: #f5f5f5;
+}
+
+header .container-sm button:hover {
+    text-shadow: 2px 2px 12px #eb055a, -2px -2px 12px #4632f0;
+    color: #f5f5f5;
+    border-color: none;
+}
